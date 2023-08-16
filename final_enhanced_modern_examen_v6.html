@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Personalizado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 40px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        #congratulations {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Examen Personalizado</h2>
+    <p>Por favor, introduce tu nombre:</p>
+    <input type="text" id="userName" placeholder="Tu nombre aquí">
+
+    <form id="quiz">
+        <p class="question">
+            Hola, {userName}! ¿Sabes cuál de estos es un Pokémon de tipo agua?
+            <br>
+            <label><input type="radio" name="q1" value="a"> Squirtle</label>
+            <label><input type="radio" name="q1" value="b"> Charmander</label>
+            <label><input type="radio" name="q1" value="c"> Pidgey</label>
+            <label><input type="radio" name="q1" value="d"> Rattata</label>
+        </p>
+        <p class="question">
+            ¡Vamos {userName}! Seguro sabes esta. ¿Cuál de los siguientes es conocido como el Pokémon ratón?
+            <br>
+            <label><input type="radio" name="q2" value="a"> Bulbasaur</label>
+            <label><input type="radio" name="q2" value="b"> Pikachu</label>
+            <label><input type="radio" name="q2" value="c"> Meowth</label>
+            <label><input type="radio" name="q2" value="d"> Diglett</label>
+        </p>
+
+        <input type="submit" value="Enviar respuestas">
+    </form>
+
+    <div id="feedback"></div>
+    <div id="congratulations">
+        <img src="https://i.imgur.com/Kz5MBEa.png" alt="Congratulations" width="200">
+        <h3>¡Felicidades, has completado el examen!</h3>
+    </div>
+    
+    <!-- Feedback script -->
+    
+<script>
+document.getElementById('quiz').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    var userName = document.getElementById('userName').value;
+    var correctAnswers = ['a', 'b'];
+    var userAnswers = [];
+    var score = 0;
+    
+    userAnswers.push(document.querySelector('input[name="q1"]:checked').value);
+    userAnswers.push(document.querySelector('input[name="q2"]:checked').value);
+    
+    var feedbackDiv = document.getElementById('feedback');
+    feedbackDiv.innerHTML = '';
+    
+    for (var i = 0; i < correctAnswers.length; i++) {
+        if (userAnswers[i] === correctAnswers[i]) {
+            score++;
+        }
+    }
+    
+    if (score === correctAnswers.length) {
+        document.getElementById('congratulations').style.display = 'block';
+        feedbackDiv.innerHTML += '<h3 class="text-success">¡Felicidades ' + userName + '! Has respondido correctamente todas las preguntas.</h3>';
+    } else if (score > (correctAnswers.length / 2)) {
+        feedbackDiv.innerHTML += '<h3 class="text-success">' + userName + ', has respondido correctamente la mayoría de las preguntas.</h3>';
+    } else {
+        feedbackDiv.innerHTML += '<h3 class="text-danger">' + userName + ', puedes repasar y volver a intentarlo.</h3>';
+    }
+});
+</script>
+
+</body>
+
+</html>
