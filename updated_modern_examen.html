@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Interactivo</title>
+    
+<style>
+    body { 
+        font-family: Arial, sans-serif; 
+        margin: 40px; 
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .question { 
+        margin-top: 20px; 
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .correct { background-color: #DFF2BF; }
+    .incorrect { background-color: #FFB0B0; }
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    h2 {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+    }
+    #startButton {
+        display: none;
+    }
+</style>
+
+<script>
+/*! canvas-confetti v1.3.0 */
+! function(t, e) {
+    "use strict";
+    if ("function" == typeof define && define.amd) define(["module"], e);
+    else if ("undefined" != typeof exports) e(module);
+    else {
+        var n = {
+            exports: {}
+        };
+        e(n), t.canvasConfetti = n.exports
+    }
+} (this, function(module) {
+    "use strict";
+    // The content of the confetti script would go here
+    // For brevity, we've omitted the full script content.
+    // You would paste the entire content of the script here.
+});
+</script>
+
+</head>
+<body>
+
+<h2>Examen Interactivo</h2>
+
+<button id="startButton" onclick="startExam()">Comenzar Examen</button>
+
+<form id="quiz" onsubmit="return evaluateQuiz();" style="display: none;">
+
+    <div class="question" onclick="startTimer(1)">
+        <p>1. ¿Cuál es la capital de Francia?</p>
+    
+        <div onclick="endTimer(1)">
+            <input type="radio" name="q1" value="Madrid"> Madrid<br>
+        </div>
+        
+        <div onclick="endTimer(1)">
+            <input type="radio" name="q1" value="Londres"> Londres<br>
+        </div>
+        
+        <div onclick="endTimer(1)">
+            <input type="radio" name="q1" value="Berlín"> Berlín<br>
+        </div>
+        
+        <div onclick="endTimer(1)">
+            <input type="radio" name="q1" value="París"> París<br>
+        </div>
+        </div>
+    <div class="question" onclick="startTimer(2)">
+        <p>2. ¿Qué gas es esencial para que respiremos?</p>
+    
+        <div onclick="endTimer(2)">
+            <input type="radio" name="q2" value="Dióxido de carbono"> Dióxido de carbono<br>
+        </div>
+        
+        <div onclick="endTimer(2)">
+            <input type="radio" name="q2" value="Nitrógeno"> Nitrógeno<br>
+        </div>
+        
+        <div onclick="endTimer(2)">
+            <input type="radio" name="q2" value="Oxígeno"> Oxígeno<br>
+        </div>
+        
+        <div onclick="endTimer(2)">
+            <input type="radio" name="q2" value="Hidrógeno"> Hidrógeno<br>
+        </div>
+        </div>
+    <div class="question" onclick="startTimer(3)">
+        <p>3. ¿Cuál es el río más largo del mundo?</p>
+    
+        <div onclick="endTimer(3)">
+            <input type="radio" name="q3" value="Nilo"> Nilo<br>
+        </div>
+        
+        <div onclick="endTimer(3)">
+            <input type="radio" name="q3" value="Amazonas"> Amazonas<br>
+        </div>
+        
+        <div onclick="endTimer(3)">
+            <input type="radio" name="q3" value="Mississippi"> Mississippi<br>
+        </div>
+        
+        <div onclick="endTimer(3)">
+            <input type="radio" name="q3" value="Yangsé"> Yangsé<br>
+        </div>
+        </div>
+    <div class="question" onclick="startTimer(4)">
+        <p>4. ¿Cuántos huesos tiene el cuerpo humano adulto?</p>
+    
+        <div onclick="endTimer(4)">
+            <input type="radio" name="q4" value="206"> 206<br>
+        </div>
+        
+        <div onclick="endTimer(4)">
+            <input type="radio" name="q4" value="305"> 305<br>
+        </div>
+        
+        <div onclick="endTimer(4)">
+            <input type="radio" name="q4" value="415"> 415<br>
+        </div>
+        
+        <div onclick="endTimer(4)">
+            <input type="radio" name="q4" value="512"> 512<br>
+        </div>
+        </div>
+    <div class="question" onclick="startTimer(5)">
+        <p>5. ¿Qué planeta es conocido como el 'Planeta Rojo'?</p>
+    
+        <div onclick="endTimer(5)">
+            <input type="radio" name="q5" value="Venus"> Venus<br>
+        </div>
+        
+        <div onclick="endTimer(5)">
+            <input type="radio" name="q5" value="Júpiter"> Júpiter<br>
+        </div>
+        
+        <div onclick="endTimer(5)">
+            <input type="radio" name="q5" value="Marte"> Marte<br>
+        </div>
+        
+        <div onclick="endTimer(5)">
+            <input type="radio" name="q5" value="Saturno"> Saturno<br>
+        </div>
+        </div>
+<input type="submit" value="Evaluar">
+</form>
+
+<p id="result"></p>
+
+<script>
+let startTimes = [];
+let endTimes = [];
+function startTimer(questionNumber) {
+    startTimes[questionNumber] = new Date();
+}
+
+function endTimer(questionNumber) {
+    endTimes[questionNumber] = new Date();
+}
+
+function evaluateQuiz() {
+    const correctAnswers = [
+"Proceso donde las plantas convierten luz solar en energía",
+"Júpiter",
+
+    ];
+    
+    let score = 0;
+    let answerFeedback = [];
+    let timesTaken = [];
+    for (let i = 1; i <= correctAnswers.length; i++) {
+        const selectedOption = document.querySelector(`input[name=q${i}]:checked`);
+        if (selectedOption && selectedOption.value === correctAnswers[i-1]) {
+            score++;
+            document.querySelector(`input[name=q${i}]:checked`).parentElement.classList.add('correct');
+            answerFeedback.push(`Pregunta ${i}: Correcto`);
+        } else {
+            document.querySelector(`input[name=q${i}]:checked`).parentElement.classList.add('incorrect');
+            answerFeedback.push(`Pregunta ${i}: Incorrecto. Respuesta correcta: ${correctAnswers[i-1]}`);
+        }
+        let timeTaken = (endTimes[i-1] - startTimes[i-1]) / 1000;  // Convert to seconds
+        timesTaken.push(`Pregunta ${i}: ${timeTaken.toFixed(2)} segundos`);
+    }
+
+    let feedbackString = "Registro de respuestas:\n";
+    for (let i = 0; i < answerFeedback.length; i++) {
+        feedbackString += answerFeedback[i] + "\n";
+    }
+
+    let timeString = "\nTiempo por pregunta:\n";
+    for (let i = 0; i < timesTaken.length; i++) {
+        timeString += timesTaken[i] + "\n";
+    }
+
+    let emoji = score > (correctAnswers.length / 2) ? "😊" : "😞";
+    document.getElementById("result").textContent = `Obtuviste ${score} de ${correctAnswers.length} respuestas correctas. ${emoji}`;
+    alert(feedbackString + timeString);
+
+    if (score > (correctAnswers.length / 2)) {
+        confetti({ particleCount: 200 });
+    }
+
+    return false;  // to prevent form submission
+}
+</script>
+
+    if (score > (correctAnswers.length / 2)) {
+        confetti({ particleCount: 200 });
+    }
+
+    return false;  // to prevent form submission
+}
+</script>
+
+</body>
+</html>
