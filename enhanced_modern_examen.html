@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Prueba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form id="quiz">
+        <div class="question">
+            <p>1. Pregunta de ejemplo 1?</p>
+            <input type="radio" name="q1" value="a"> a) Opción 1<br>
+            <input type="radio" name="q1" value="b"> b) Opción 2<br>
+        </div>
+        <div class="question">
+            <p>2. Pregunta de ejemplo 2?</p>
+            <input type="radio" name="q2" value="a"> a) Opción 1<br>
+            <input type="radio" name="q2" value="b"> b) Opción 2<br>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+document.getElementById('quiz').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    var correctAnswers = ['a', 'b'];  // Correct answers for the sample questions
+    var userAnswers = [];
+    var score = 0;
+    
+    userAnswers.push(document.querySelector('input[name="q1"]:checked').value);
+    userAnswers.push(document.querySelector('input[name="q2"]:checked').value);
+    
+    for (var i = 0; i < correctAnswers.length; i++) {
+        if (userAnswers[i] === correctAnswers[i]) {
+            score++;
+            document.querySelectorAll('.question')[i].style.color = 'green';
+        } else {
+            document.querySelectorAll('.question')[i].style.color = 'red';
+        }
+    }
+    
+    alert('Tu puntaje es: ' + score + ' de ' + correctAnswers.length);
+    
+    if (score > (correctAnswers.length / 2)) {
+        confetti({ particleCount: 200 });
+    }
+});
+
+
+        // JavaScript functions and logic for the quiz will be here
+    </script>
+</body>
+</html>
