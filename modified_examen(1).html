@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Interactivo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.0/confetti.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 40px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Examen Interactivo</h2>
+        <form id="quiz">
+            
+    <div class="question">
+        <p>¿Cuál es el enfoque principal del documento?</p>
+        <input type="radio" name="q1" value="a" required> a) Predicción de juicios legales multilingües<br>
+        <input type="radio" name="q1" value="b"> b) Estudio del cambio climático<br>
+        <input type="radio" name="q1" value="c"> c) Técnicas avanzadas de cirugía<br>
+        <input type="radio" name="q1" value="d"> d) Historia del derecho romano<br>
+    </div>
+
+    <div class="question">
+        <p>¿Dónde se llevó a cabo el estudio o investigación mencionada en el documento?</p>
+        <input type="radio" name="q2" value="a" required> a) Harvard University<br>
+        <input type="radio" name="q2" value="b"> b) Thomson Reuters Labs, Eagan, MN, United States of America<br>
+        <input type="radio" name="q2" value="c"> c) Universidad de Buenos Aires<br>
+        <input type="radio" name="q2" value="d"> d) Instituto Tecnológico de Massachusetts<br>
+    </div>
+
+    <div class="question">
+        <p>¿Cuál es el objetivo principal de las tareas de clasificación supervisada?</p>
+        <input type="radio" name="q3" value="a" required> a) Traducción automática de idiomas<br>
+        <input type="radio" name="q3" value="b"> b) Renderización de gráficos en 3D<br>
+        <input type="radio" name="q3" value="c"> c) Predicción basada en datos etiquetados previamente<br>
+        <input type="radio" name="q3" value="d"> d) Edición de videos en tiempo real<br>
+    </div>
+
+    <div class="question">
+        <p>¿Cómo se propone abordar las tareas de clasificación en el documento?</p>
+        <input type="radio" name="q4" value="a" required> a) Usando técnicas tradicionales de estadística<br>
+        <input type="radio" name="q4" value="b"> b) A través de entrevistas personales<br>
+        <input type="radio" name="q4" value="c"> c) Con un enfoque novedoso<br>
+        <input type="radio" name="q4" value="d"> d) Mediante observación directa<br>
+    </div>
+
+    <div class="question">
+        <p>¿Qué opción se menciona en relación con la técnica de "fine-tuning"?</p>
+        <input type="radio" name="q5" value="a" required> a) Es la única técnica disponible<br>
+        <input type="radio" name="q5" value="b"> b) Se descartó por completo<br>
+        <input type="radio" name="q5" value="c"> c) Aún es una opción a considerar<br>
+        <input type="radio" name="q5" value="d"> d) Se utiliza para la edición de imágenes<br>
+    </div>
+
+            <input type="submit" class="btn btn-primary" value="Enviar respuestas">
+        </form>
+        <div id="feedback"></div>
+    </div>
+</body>
+</html>
+
+<script>
+document.getElementById('quiz').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    var correctAnswers = ['a', 'b', 'c', 'c', 'c'];
+    var explanations = [
+        "Pikachu es un Pokémon de tipo eléctrico, mientras que Charmander es de tipo fuego.",
+        "El número que sigue al 1 es el 2."
+    ];
+    var userAnswers = [];
+    var score = 0;
+    
+    userAnswers.push(document.querySelector('input[name="q1"]:checked').value);
+    userAnswers.push(document.querySelector('input[name="q2"]:checked').value);
+    
+    var feedbackDiv = document.getElementById('feedback');
+    feedbackDiv.innerHTML = '';
+    
+    for (var i = 0; i < correctAnswers.length; i++) {
+        if (userAnswers[i] === correctAnswers[i]) {
+            score++;
+            feedbackDiv.innerHTML += '<p class="text-success">Pregunta ' + (i + 1) + ': Correcta.</p>';
+        } else {
+            feedbackDiv.innerHTML += '<p class="text-danger">Pregunta ' + (i + 1) + ': Incorrecta. ' + explanations[i] + '</p>';
+        }
+    }
+    
+    if (score === correctAnswers.length) {
+        confetti({ particleCount: 200 });
+        feedbackDiv.innerHTML += '<h3 class="text-success">¡Perfecto! Tu puntaje es ' + score + ' de ' + correctAnswers.length + '</h3>';
+    } else if (score > (correctAnswers.length / 2)) {
+        confetti({ particleCount: 200 });
+        feedbackDiv.innerHTML += '<h3 class="text-success">¡Bien hecho! Tu puntaje es ' + score + ' de ' + correctAnswers.length + '</h3>';
+    } else {
+        feedbackDiv.innerHTML += '<h3 class="text-danger">Tu puntaje es ' + score + ' de ' + correctAnswers.length + '. ¡Sigue intentándolo!</h3>';
+    }
+});
+</script>
