@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Examen Interactivo</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.0/confetti.min.js"></script>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 40px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<h2 class="text-center">Examen Interactivo</h2>
+<form id="quiz">
+
+
+<input class="btn btn-primary" type="submit" value="Enviar respuestas"/>
+<div class="question"><p>¿Quién es el autor del libro 'El Vendedor de Silencio'?</p><input name="q1" type="radio" value="a"/> a) Guillermo J Ruiz-Argüelles<br/><input name="q2" type="radio" value="b"/> b) Enrique Serna<br/><input name="q3" type="radio" value="c"/> c) Carlos Denegri<br/><input name="q4" type="radio" value="d"/> d) IF Tannock<br/></div><div class="question"><p>¿Qué actividad llevó a cabo Carlos Denegri según el texto?</p><input name="q1" type="radio" value="a"/> a) Autor de un libro<br/><input name="q2" type="radio" value="b"/> b) Editor de un periódico<br/><input name="q3" type="radio" value="c"/> c) Extorsionar personajes públicos<br/><input name="q4" type="radio" value="d"/> d) Escritor de editoriales<br/></div></form>
+<div id="feedback"></div>
+</div>
+</body>
+</html>
+<script>
+document.getElementById('quiz').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Correct answers and explanations for each question
+    
+    var questionsData = [
+
+        {
+            'correctAnswer': 'b',
+            'explanations': {
+                'a': 'Guillermo J Ruiz-Argüelles es el autor del artículo, no del libro mencionado.',
+'b': '',
+'c': 'Carlos Denegri es el periodista mencionado en el libro, no su autor.',
+'d': 'IF Tannock es mencionado en relación con otro editorial, no con 'El Vendedor de Silencio'.'
+            }
+        },
+    
+        {
+            'correctAnswer': 'c',
+            'explanations': {
+                'a': 'Carlos Denegri no es mencionado como autor de un libro.',
+'b': 'No se menciona que Carlos Denegri haya sido editor de un periódico.',
+'c': '',
+'d': 'Carlos Denegri no es mencionado como escritor de editoriales.'
+            }
+        },
+    ];
+    
+    var score = 0;
+    var feedback = [];
+    
+    questionsData.forEach(function(questionData, index) {
+        var userAnswer = document.querySelector(`input[name="q${index + 1}"]:checked`).value;
+        
+        if (userAnswer === questionData.correctAnswer) {
+            score++;
+        } else {
+            feedback.push(questionData.explanations[userAnswer]);
+        }
+    });
+    
+    var feedbackDiv = document.getElementById('feedback');
+    feedbackDiv.innerHTML = feedback.join('<br>');
+    
+    if (score === questionsData.length) {
+        feedbackDiv.innerHTML = "¡Felicidades! Todas tus respuestas son correctas.";
+    }
+});
+</script>
